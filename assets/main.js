@@ -13,20 +13,38 @@ document.getElementById("year").textContent = new Date().getFullYear();
 const nav = document.querySelector(".nav");
 addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
 
-// Before / after slider
-const compare = document.getElementById("compare");
-const range = compare.querySelector(".compare-range");
-range.addEventListener("input", () => compare.style.setProperty("--pos", `${range.value}%`));
+function countUp(element, target, duration = 1400) {
+    const start = performance.now();
+    const step = (now) => {
+        const progress = Math.min(1, (now - start) / duration);
+        element.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3)));
+        if (progress < 1)
+            requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+}
 
-// Working label demo
+const revealObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+        if (!entry.isIntersecting)
+            continue;
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+    }
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+
+const statNum = document.querySelector(".stat-num");
+const badgeCount = document.getElementById("badge-count");
+setTimeout(() => {
+    countUp(statNum, Number(statNum.dataset.count));
+    countUp(badgeCount, 41);
+}, 400);
+
+// Interactive label demo
 const demoText = document.getElementById("demo-text");
 const demoHint = document.getElementById("demo-hint");
-const DEMO_HINTS = {
-    up: "Marked as AI. Your vote counts toward the score other people see.",
-    down: "Marked as not AI. Blok removes the label and labels less like this for you.",
-    hidden: "Hidden. Tap Show to read it.",
-    idle: "This label works. Try the buttons."
-};
 document.querySelectorAll("[data-demo]").forEach((button) => {
     button.addEventListener("click", () => {
         const action = button.dataset.demo;
@@ -34,23 +52,26 @@ document.querySelectorAll("[data-demo]").forEach((button) => {
             const blurred = demoText.classList.toggle("blurred");
             button.textContent = blurred ? "Show" : "Hide";
             button.classList.toggle("active", blurred);
-            demoHint.textContent = blurred ? DEMO_HINTS.hidden : DEMO_HINTS.idle;
+            demoHint.textContent = blurred ? "Hidden. Tap Show to reveal it again." : "Try the buttons. Hide blurs it; 👍 / 👎 teach Blok.";
             return;
         }
-        document.querySelectorAll("[data-demo='up'], [data-demo='down']").forEach((other) => other.classList.toggle("active", other === button));
-        demoHint.textContent = DEMO_HINTS[action];
+        document.querySelectorAll("[data-demo='up'], [data-demo='down']").forEach((b) => b.classList.remove("active"));
+        button.classList.add("active");
+        demoHint.textContent = action === "up"
+            ? "Thanks! Your vote helps Blok catch slop like this for everyone."
+            : "Got it. Blok will label less like this for you, and learn from it.";
     });
 });
 
 // Pricing toggle
 const PRICES = {
-    yearly: { price: "$11.99", period: "a year", sub: "$1 a month. Try it free for 7 days." },
-    monthly: { price: "$1.99", period: "a month", sub: "Cancel anytime. Try it free for 7 days." }
+    yearly: { price: "$11.99", period: "/ year", sub: "Just $1 a month. 7-day free trial." },
+    monthly: { price: "$1.99", period: "/ month", sub: "Cancel anytime. 7-day free trial." }
 };
 let billing = "yearly";
 document.querySelectorAll("[data-billing]").forEach((button) => {
     button.addEventListener("click", () => {
-        document.querySelectorAll("[data-billing]").forEach((other) => other.classList.toggle("active", other === button));
+        document.querySelectorAll("[data-billing]").forEach((b) => b.classList.toggle("active", b === button));
         billing = button.dataset.billing;
         const plan = PRICES[billing];
         document.getElementById("price").textContent = plan.price;
@@ -59,17 +80,15 @@ document.querySelectorAll("[data-billing]").forEach((button) => {
     });
 });
 
-// Checkout opens as a Lemon Squeezy overlay on top of the page
-const buyButton = document.getElementById("buy-chromium");
+// Lemon Squeezy checkout for Chrome / Edge, opened as an overlay on the page
 if (CHECKOUT.monthly && CHECKOUT.yearly) {
-    delete buyButton.dataset.platform;
     const lemon = document.createElement("script");
     lemon.src = "https://app.lemonsqueezy.com/js/lemon.js";
     lemon.defer = true;
     lemon.onload = () => window.createLemonSqueezy?.();
     document.head.append(lemon);
 
-    buyButton.addEventListener("click", (event) => {
+    document.getElementById("buy-chromium").addEventListener("click", (event) => {
         event.preventDefault();
         const url = CHECKOUT[billing];
         if (window.LemonSqueezy)
@@ -79,24 +98,16 @@ if (CHECKOUT.monthly && CHECKOUT.yearly) {
     });
 }
 
-// Download buttons preselect the browser in the waitlist form
-const form = document.getElementById("notify");
-document.querySelectorAll("a[data-platform]").forEach((link) => {
-    link.addEventListener("click", () => {
-        form.querySelector(`input[value="${link.dataset.platform}"]`).checked = true;
-    });
-});
-
 // Waitlist
+const form = document.getElementById("notify");
 const message = document.getElementById("notify-msg");
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const email = form.elements.email.value.trim();
-    const platform = form.elements.platform.value;
+    const email = form.querySelector("input").value.trim();
     const button = form.querySelector("button");
 
     if (!SUPABASE_URL || !SUPABASE_KEY) {
-        message.textContent = "Sign-ups open soon. Check back in a few days.";
+        message.textContent = "Sign-ups open soon. Check back shortly!";
         return;
     }
 
@@ -110,15 +121,15 @@ form.addEventListener("submit", async (event) => {
                 "Content-Type": "application/json",
                 "Prefer": "return=minimal"
             },
-            body: JSON.stringify({ email, platform })
+            body: JSON.stringify({ email })
         });
         message.textContent = response.ok || response.status === 409
-            ? "You're on the list. We'll email you once, when Blok is out."
-            : "That didn't work. Please try again.";
+            ? "You're on the list. We'll email you the day Blok launches."
+            : "Something went wrong. Please try again.";
         if (response.ok)
-            form.elements.email.value = "";
+            form.reset();
     } catch {
-        message.textContent = "That didn't work. Please try again.";
+        message.textContent = "Something went wrong. Please try again.";
     } finally {
         button.disabled = false;
     }
