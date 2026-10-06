@@ -8,9 +8,11 @@ const CHECKOUT = {
     yearly: ""
 };
 
-document.getElementById("year").textContent = new Date().getFullYear();
+const $ = (selector) => document.querySelector(selector);
 
-const nav = document.querySelector(".nav");
+$("#year").textContent = new Date().getFullYear();
+
+const nav = $(".nav");
 addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
 
 function countUp(element, target, duration = 1400) {
@@ -35,16 +37,19 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
 
-const statNum = document.querySelector(".stat-num");
-const badgeCount = document.getElementById("badge-count");
-setTimeout(() => {
-    countUp(statNum, Number(statNum.dataset.count));
-    countUp(badgeCount, 41);
-}, 400);
+// Hero counters (home page)
+const statNum = $(".stat-num");
+const badgeCount = $("#badge-count");
+if (statNum && badgeCount) {
+    setTimeout(() => {
+        countUp(statNum, Number(statNum.dataset.count));
+        countUp(badgeCount, 41);
+    }, 400);
+}
 
 // Interactive label demo
-const demoText = document.getElementById("demo-text");
-const demoHint = document.getElementById("demo-hint");
+const demoText = $("#demo-text");
+const demoHint = $("#demo-hint");
 document.querySelectorAll("[data-demo]").forEach((button) => {
     button.addEventListener("click", () => {
         const action = button.dataset.demo;
@@ -74,21 +79,22 @@ document.querySelectorAll("[data-billing]").forEach((button) => {
         document.querySelectorAll("[data-billing]").forEach((b) => b.classList.toggle("active", b === button));
         billing = button.dataset.billing;
         const plan = PRICES[billing];
-        document.getElementById("price").textContent = plan.price;
-        document.getElementById("price-period").textContent = plan.period;
-        document.getElementById("price-sub").textContent = plan.sub;
+        $("#price").textContent = plan.price;
+        $("#price-period").textContent = plan.period;
+        $("#price-sub").textContent = plan.sub;
     });
 });
 
 // Lemon Squeezy checkout for Chrome / Edge, opened as an overlay on the page
-if (CHECKOUT.monthly && CHECKOUT.yearly) {
+const buyButton = $("#buy-chromium");
+if (buyButton && CHECKOUT.monthly && CHECKOUT.yearly) {
     const lemon = document.createElement("script");
     lemon.src = "https://app.lemonsqueezy.com/js/lemon.js";
     lemon.defer = true;
     lemon.onload = () => window.createLemonSqueezy?.();
     document.head.append(lemon);
 
-    document.getElementById("buy-chromium").addEventListener("click", (event) => {
+    buyButton.addEventListener("click", (event) => {
         event.preventDefault();
         const url = CHECKOUT[billing];
         if (window.LemonSqueezy)
@@ -99,9 +105,9 @@ if (CHECKOUT.monthly && CHECKOUT.yearly) {
 }
 
 // Waitlist
-const form = document.getElementById("notify");
-const message = document.getElementById("notify-msg");
-form.addEventListener("submit", async (event) => {
+const form = $("#notify");
+const message = $("#notify-msg");
+form?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const email = form.querySelector("input").value.trim();
     const button = form.querySelector("button");
