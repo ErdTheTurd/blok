@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Features — Blok</title>
+    <meta name="description" content="How Blok blocks ads, trackers and YouTube ads, and how it labels AI-generated writing, images and videos.">
+    <meta property="og:title" content="Features — Blok">
+    <meta property="og:description" content="How Blok blocks ads, trackers and YouTube ads, and how it labels AI-generated writing, images and videos.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#08080B">
+    <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/style.css?v=4">
+    <script src="../assets/main.js?v=4" defer></script>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container nav-inner">
+            <a href="../" class="brand"><img src="../assets/logo.svg" alt="" width="30" height="30"><span>Blok</span></a>
+            <div class="nav-links">
+                <a href="../features/" aria-current="page">Features</a>
+                <a href="../pricing/">Pricing</a>
+                <a href="../faq/">FAQ</a>
+                <a href="../support/">Support</a>
+            </div>
+            <a href="#download" class="button button-small">Get Blok</a>
+        </div>
+    </nav>
+
+    <header class="page-head">
+        <div class="container">
+            <span class="kicker">Features</span>
+            <h1>Everything Blok removes, and everything it labels.</h1>
+            <p class="lead">Blok does two jobs. It blocks ads and trackers for free, and with Pro it marks writing, images and videos that were probably made by AI.</p>
+        </div>
+    </header>
+
+    <section id="ads" class="section">
+        <div class="container">
+            <div class="section-head">
+                <span class="kicker">Ad blocking · Free</span>
+                <h2>Ads never load in the first place.</h2>
+                <p>Blocking happens in the browser's own network layer, before a page can download an ad. Pages get lighter, not heavier.</p>
+            </div>
+
+            <div class="rows">
+                <div class="row">
+                    <div class="row-copy">
+                        <h3>Ads and trackers, blocked by the browser itself.</h3>
+                        <p>Blok uses the same filter lists as uBlock Origin: EasyList for ads and EasyPrivacy for trackers, over 100,000 rules in total. Blok hands them to Safari, Chrome or Edge, which apply them natively. That's faster and easier on the battery than a blocker that inspects every page in JavaScript.</p>
+                        <ul class="facts">
+                            <li><span>Banner, sidebar and pop-up ads</span><span>EasyList</span></li>
+                            <li><span>Analytics and tracking pixels</span><span>EasyPrivacy</span></li>
+                            <li><span>Cookie banners and newsletter pop-ups</span><span>Optional</span></li>
+                            <li><span>Filter updates</span><span>Automatic</span></li>
+                        </ul>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head"><span>riversidegazette.com</span><span>41 requests blocked</span></div>
+                        <ul class="log requests">
+                            <li><code>securepubads.g.doubleclick.net</code><em>blocked</em></li>
+                            <li><code>pagead2.googlesyndication.com</code><em>blocked</em></li>
+                            <li><code>c.amazon-adsystem.com</code><em>blocked</em></li>
+                            <li><code>cdn.taboola.com</code><em>blocked</em></li>
+                            <li><code>sb.scorecardresearch.com</code><em>blocked</em></li>
+                            <li><code>static.hotjar.com</code><em>blocked</em></li>
+                            <li><code>riversidegazette.com/article.js</code><span style="color: var(--muted); font-size: 13px">allowed</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row flip">
+                    <div class="row-copy">
+                        <h3>Every kind of YouTube ad.</h3>
+                        <p>YouTube sends ads inside the same data as the video. Blok removes them from that data before the player reads it, so there's no ad to wait out and no black screen.</p>
+                        <p>It also hides the ads YouTube puts in the home feed, search results, Shorts and the merch shelf under videos. If an ad still gets through after a YouTube update, Blok mutes it and skips to the end.</p>
+                        <ul class="facts">
+                            <li><span>Ads before and during videos</span><span>Removed</span></li>
+                            <li><span>Feed, search and Shorts ads</span><span>Hidden</span></li>
+                            <li><span>Banner and overlay ads</span><span>Hidden</span></li>
+                            <li><span>Sponsor reads inside videos</span><span>Skipped · Pro</span></li>
+                        </ul>
+                    </div>
+                    <div class="panel">
+                        <div class="player-screen"><span class="play"></span><span class="player-title">How I restored a 1974 camper van</span></div>
+                        <div class="player-bar"><i class="played" style="width: 41%"></i><b class="gone" style="left: 0"></b><b class="gone" style="left: 47%"></b><b class="sponsor" style="left: 68%; width: 7%"></b></div>
+                        <ul class="log">
+                            <li><span>0:00</span>Pre-roll ad, 15s<em>removed</em></li>
+                            <li><span>9:12</span>Mid-roll ad, 30s<em>removed</em></li>
+                            <li><span>13:40</span>Sponsor segment<em>skipped · Pro</em></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row-copy">
+                        <h3>Sites don't see it coming.</h3>
+                        <p>Many sites check whether their ads loaded and show a wall if they didn't. Blok hides elements in a layer the page can't inspect, and it answers the common detection scripts the way they expect, so the wall never appears.</p>
+                        <p>If a site still breaks, pause Blok for that site from the toolbar button. It reloads without Blok, and Blok remembers your choice.</p>
+                    </div>
+                    <div class="panel">
+                        <div class="nag">
+                            <strong>It looks like you're using an ad blocker</strong>
+                            <p>Please disable it to keep reading.</p>
+                            <span>I've disabled it</span>
+                        </div>
+                        <p class="nag-caption">The screen you won't see.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="labels" class="section section-alt">
+        <div class="container">
+            <div class="section-head">
+                <span class="kicker">AI labels · Pro</span>
+                <h2>Not a guess. A score you can check.</h2>
+                <p>Blok combines several independent signals into one percentage and shows it next to the content. It gets more accurate every time someone taps 👍 or 👎.</p>
+            </div>
+
+            <div class="how-grid">
+                <ol class="signals">
+                    <li>
+                        <span class="num">1</span>
+                        <div><h4>Labels the AI company added</h4><p>Under the EU AI Act and similar rules, more AI tools now tag what they make. Blok checks Content Credentials (C2PA), IPTC "AI-generated" metadata and YouTube's altered-or-synthetic disclosure first. When a tag is there, Blok is near-certain.</p></div>
+                    </li>
+                    <li>
+                        <span class="num">2</span>
+                        <div><h4>Analysis on your device</h4><p>Most AI text isn't tagged, so Blok looks at phrasing, structure and rhythm, right on your device. Nothing you read is uploaded. On Apple devices with Apple Intelligence, Pro can run a second, deeper check.</p></div>
+                    </li>
+                    <li>
+                        <span class="num">3</span>
+                        <div><h4>Votes from other people</h4><p>Every 👍 and 👎 is sent as an anonymous fingerprint of the content. When enough people agree about the same post, image or video, everyone's label for it gets more accurate.</p></div>
+                    </li>
+                </ol>
+
+                <div class="label-demo">
+                    <p class="demo-caption">Try it</p>
+                    <div class="demo-card">
+                        <div class="blok-badge large"><span class="pip"></span>AI text · 80% likely<button data-demo="up">👍</button><button data-demo="down">👎</button><button data-demo="hide">Hide</button></div>
+                        <p class="demo-text" id="demo-text">Unlock the secrets of productivity with these game-changing strategies that will revolutionize the way you work, foster creativity, and elevate your daily routine.</p>
+                        <p class="demo-hint" id="demo-hint">Try the buttons. Hide blurs it; 👍 / 👎 teach Blok.</p>
+                    </div>
+                    <div class="meter visible">
+                        <div class="meter-row"><span>Metadata</span><div class="bar"><i style="--w:20%"></i></div></div>
+                        <div class="meter-row"><span>Writing style</span><div class="bar"><i style="--w:88%"></i></div></div>
+                        <div class="meter-row"><span>Community</span><div class="bar"><i style="--w:74%"></i></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rows" style="margin-top: 112px">
+                <div class="row">
+                    <div class="row-copy">
+                        <h3>Images and videos too.</h3>
+                        <p>Images from Midjourney, DALL·E, Firefly, Google and others often carry a signature saying they were generated. Blok reads it and labels the image, even when the page doesn't mention it.</p>
+                        <p>On YouTube, Blok reads the uploader's "altered or synthetic content" disclosure, looks at the title and description, and adds what other viewers voted.</p>
+                    </div>
+                    <div class="panel">
+                        <div class="mock-row">
+                            <figure class="mock-image">
+                                <div class="blok-badge overlay"><span class="pip"></span>AI image · 99%</div>
+                                <div class="art art-1" style="filter: saturate(0.7)"></div>
+                            </figure>
+                            <figure class="mock-video">
+                                <div class="blok-badge overlay amber"><span class="pip"></span>AI video · 80%</div>
+                                <div class="art art-2"><span class="play"></span></div>
+                                <figcaption>Ancient city rises from the ocean</figcaption>
+                            </figure>
+                        </div>
+                        <ul class="facts" style="margin-top: 18px">
+                            <li><span>Image signed by Adobe Firefly</span><span>Content Credentials</span></li>
+                            <li><span>Video marked synthetic by uploader</span><span>YouTube disclosure</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row flip">
+                    <div class="row-copy">
+                        <h3>You decide what happens next.</h3>
+                        <p>Labels never remove anything. Hide blurs the post until you tap Show. Thumbs down removes the label and teaches Blok to label less like it for you. Thumbs up confirms it for everyone.</p>
+                        <p>Labels appear at 70% and up by default. Set sensitivity to Low for fewer labels or High to catch more.</p>
+                    </div>
+                    <div class="panel">
+                        <ul class="facts" style="margin-top: 0">
+                            <li><span>Low sensitivity</span><span>Labels at 85% and up</span></li>
+                            <li><span>Medium (default)</span><span>Labels at 70% and up</span></li>
+                            <li><span>High sensitivity</span><span>Labels at 55% and up</span></li>
+                            <li><span>Your thumbs-downs</span><span>Raise your threshold</span></li>
+                            <li><span>Your thumbs-ups</span><span>Lower it a little</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="control" class="section">
+        <div class="container">
+            <div class="section-head">
+                <span class="kicker">Control</span>
+                <h2>Your browser, your rules.</h2>
+            </div>
+
+            <div class="rows">
+                <div class="row">
+                    <div class="row-copy">
+                        <h3>One button for every site.</h3>
+                        <p>The toolbar button shows what Blok did on the page you're on. If something looks broken, pause Blok there and the page reloads without it. Every other site stays protected.</p>
+                    </div>
+                    <div class="panel">
+                        <div class="popup">
+                            <div class="popup-head"><img src="../assets/logo.svg" alt="" width="30" height="30"><div>Blok<small>youtube.com</small></div></div>
+                            <div class="popup-stats">
+                                <div><b>12</b><span>ads</span></div>
+                                <div><b>3</b><span>YouTube ads</span></div>
+                                <div><b>2</b><span>AI labeled</span></div>
+                            </div>
+                            <div class="popup-button">Pause on this site</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row flip">
+                    <div class="row-copy">
+                        <h3>Hide anything else that bothers you.</h3>
+                        <p>With Pro, add your own hiding rules. Type the CSS selector of anything you never want to see, like a sticky video player or a comments section, and Blok hides it on every site.</p>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head"><span>Custom hiding rules</span><span>Pro</span></div>
+<pre class="code"><span class="c">/* one selector per line */</span>
+.newsletter-popup
+#sticky-video-player
+.comments-section
+[data-testid="trending"]</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="section cta">
+        <div class="container">
+            <div class="cta-card">
+                <img src="../assets/logo.svg" alt="" width="72" height="72">
+                <h2>Take the web back.</h2>
+                <p>Blok is coming soon to the App Store for iPhone, iPad and Mac, and to Chrome and Edge on Windows.</p>
+                <form class="notify" id="notify">
+                    <input type="email" placeholder="you@email.com" required aria-label="Email address">
+                    <button class="button" type="submit">Notify me</button>
+                </form>
+                <p class="notify-msg" id="notify-msg" aria-live="polite"></p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a href="../" class="brand"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Blok</span></a>
+            <div class="footer-links">
+                <a href="../features/">Features</a>
+                <a href="../pricing/">Pricing</a>
+                <a href="../faq/">FAQ</a>
+                <a href="../privacy/">Privacy</a>
+                <a href="../support/">Support</a>
+                <a href="https://github.com/ErdTheTurd/blok">GitHub</a>
+            </div>
+            <p>&copy; <span id="year">2026</span> Blok</p>
+        </div>
+    </footer>
+</body>
+</html>
