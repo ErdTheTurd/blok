@@ -6,38 +6,20 @@ document.getElementById("year").textContent = new Date().getFullYear();
 const nav = document.querySelector(".nav");
 addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
 
-function countUp(element, target, duration = 1400) {
-    const start = performance.now();
-    const step = (now) => {
-        const progress = Math.min(1, (now - start) / duration);
-        element.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3)));
-        if (progress < 1)
-            requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-}
+// Before / after slider
+const compare = document.getElementById("compare");
+const range = compare.querySelector(".compare-range");
+range.addEventListener("input", () => compare.style.setProperty("--pos", `${range.value}%`));
 
-const revealObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-        if (!entry.isIntersecting)
-            continue;
-        entry.target.classList.add("visible");
-        revealObserver.unobserve(entry.target);
-    }
-}, { threshold: 0.12 });
-
-document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
-
-const statNum = document.querySelector(".stat-num");
-const badgeCount = document.getElementById("badge-count");
-setTimeout(() => {
-    countUp(statNum, Number(statNum.dataset.count));
-    countUp(badgeCount, 41);
-}, 400);
-
-// Interactive label demo
+// Working label demo
 const demoText = document.getElementById("demo-text");
 const demoHint = document.getElementById("demo-hint");
+const DEMO_HINTS = {
+    up: "Marked as AI. Your vote counts toward the score other people see.",
+    down: "Marked as not AI. Blok removes the label and labels less like this for you.",
+    hidden: "Hidden. Tap Show to read it.",
+    idle: "This label works. Try the buttons."
+};
 document.querySelectorAll("[data-demo]").forEach((button) => {
     button.addEventListener("click", () => {
         const action = button.dataset.demo;
@@ -45,25 +27,22 @@ document.querySelectorAll("[data-demo]").forEach((button) => {
             const blurred = demoText.classList.toggle("blurred");
             button.textContent = blurred ? "Show" : "Hide";
             button.classList.toggle("active", blurred);
-            demoHint.textContent = blurred ? "Hidden. Tap Show to reveal it again." : "Try the buttons. Hide blurs it; 👍 / 👎 teach Blok.";
+            demoHint.textContent = blurred ? DEMO_HINTS.hidden : DEMO_HINTS.idle;
             return;
         }
-        document.querySelectorAll("[data-demo='up'], [data-demo='down']").forEach((b) => b.classList.remove("active"));
-        button.classList.add("active");
-        demoHint.textContent = action === "up"
-            ? "Thanks! Your vote helps Blok catch slop like this for everyone."
-            : "Got it. Blok will label less like this for you, and learn from it.";
+        document.querySelectorAll("[data-demo='up'], [data-demo='down']").forEach((other) => other.classList.toggle("active", other === button));
+        demoHint.textContent = DEMO_HINTS[action];
     });
 });
 
 // Pricing toggle
 const PRICES = {
-    yearly: { price: "$19.99", period: "/ year", sub: "Just $1.67 a month. 7-day free trial." },
-    monthly: { price: "$2.99", period: "/ month", sub: "Cancel anytime. 7-day free trial." }
+    yearly: { price: "$19.99", period: "a year", sub: "$1.67 a month. Try it free for 7 days." },
+    monthly: { price: "$2.99", period: "a month", sub: "Cancel anytime. Try it free for 7 days." }
 };
 document.querySelectorAll("[data-billing]").forEach((button) => {
     button.addEventListener("click", () => {
-        document.querySelectorAll("[data-billing]").forEach((b) => b.classList.toggle("active", b === button));
+        document.querySelectorAll("[data-billing]").forEach((other) => other.classList.toggle("active", other === button));
         const plan = PRICES[button.dataset.billing];
         document.getElementById("price").textContent = plan.price;
         document.getElementById("price-period").textContent = plan.period;
@@ -71,16 +50,24 @@ document.querySelectorAll("[data-billing]").forEach((button) => {
     });
 });
 
-// Waitlist
+// Download buttons preselect the browser in the waitlist form
 const form = document.getElementById("notify");
+document.querySelectorAll("a[data-platform]").forEach((link) => {
+    link.addEventListener("click", () => {
+        form.querySelector(`input[value="${link.dataset.platform}"]`).checked = true;
+    });
+});
+
+// Waitlist
 const message = document.getElementById("notify-msg");
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const email = form.querySelector("input").value.trim();
+    const email = form.elements.email.value.trim();
+    const platform = form.elements.platform.value;
     const button = form.querySelector("button");
 
     if (!SUPABASE_URL || !SUPABASE_KEY) {
-        message.textContent = "Sign-ups open soon. Check back shortly!";
+        message.textContent = "Sign-ups open soon. Check back in a few days.";
         return;
     }
 
@@ -94,15 +81,15 @@ form.addEventListener("submit", async (event) => {
                 "Content-Type": "application/json",
                 "Prefer": "return=minimal"
             },
-            body: JSON.stringify({ email })
+            body: JSON.stringify({ email, platform })
         });
         message.textContent = response.ok || response.status === 409
-            ? "You're on the list. We'll email you the day Blok launches."
-            : "Something went wrong. Please try again.";
+            ? "You're on the list. We'll email you once, when Blok is out."
+            : "That didn't work. Please try again.";
         if (response.ok)
-            form.reset();
+            form.elements.email.value = "";
     } catch {
-        message.textContent = "Something went wrong. Please try again.";
+        message.textContent = "That didn't work. Please try again.";
     } finally {
         button.disabled = false;
     }
