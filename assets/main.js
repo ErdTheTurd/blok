@@ -70,7 +70,7 @@ document.querySelectorAll("[data-demo]").forEach((button) => {
 
 // Pricing toggle
 const PRICES = {
-    yearly: { price: "$11.99", period: "/ year", sub: "Just $1 a month. 7-day free trial." },
+    yearly: { price: "$11.99", period: "/ year", sub: "Just $1 a month. 14-day free trial." },
     monthly: { price: "$1.99", period: "/ month", sub: "Cancel anytime. 7-day free trial." }
 };
 let billing = "yearly";
