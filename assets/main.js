@@ -1,5 +1,5 @@
-const SUPABASE_URL = "";
-const SUPABASE_KEY = "";
+const SUPABASE_URL = "https://lajxxqvvhaqkdothufyh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_lb2IkB9g1EXy0MkVrttKSg_OKYOODGW";
 
 // Lemon Squeezy checkout links for Blok Pro on Chrome / Edge
 // (Products › Blok Pro › each variant › Share). Empty means "not on sale yet".
