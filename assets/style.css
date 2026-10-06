@@ -832,6 +832,22 @@ h2 {
     font-size: 15px;
 }
 
+.plan-buy {
+    margin-top: 28px;
+}
+
+.button-buy {
+    width: 100%;
+    padding: 0 14px;
+    white-space: nowrap;
+}
+
+.plan-note {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
 /* 05: FAQ */
 
 .faq-head {

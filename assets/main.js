@@ -1,6 +1,13 @@
 const SUPABASE_URL = "";
 const SUPABASE_KEY = "";
 
+// Lemon Squeezy checkout links for Blok Pro on Chrome / Edge
+// (Products › Blok Pro › each variant › Share). Empty means "not on sale yet".
+const CHECKOUT = {
+    monthly: "",
+    yearly: ""
+};
+
 document.getElementById("year").textContent = new Date().getFullYear();
 
 const nav = document.querySelector(".nav");
@@ -37,18 +44,40 @@ document.querySelectorAll("[data-demo]").forEach((button) => {
 
 // Pricing toggle
 const PRICES = {
-    yearly: { price: "$19.99", period: "a year", sub: "$1.67 a month. Try it free for 7 days." },
-    monthly: { price: "$2.99", period: "a month", sub: "Cancel anytime. Try it free for 7 days." }
+    yearly: { price: "$11.99", period: "a year", sub: "$1 a month. Try it free for 7 days." },
+    monthly: { price: "$1.99", period: "a month", sub: "Cancel anytime. Try it free for 7 days." }
 };
+let billing = "yearly";
 document.querySelectorAll("[data-billing]").forEach((button) => {
     button.addEventListener("click", () => {
         document.querySelectorAll("[data-billing]").forEach((other) => other.classList.toggle("active", other === button));
-        const plan = PRICES[button.dataset.billing];
+        billing = button.dataset.billing;
+        const plan = PRICES[billing];
         document.getElementById("price").textContent = plan.price;
         document.getElementById("price-period").textContent = plan.period;
         document.getElementById("price-sub").textContent = plan.sub;
     });
 });
+
+// Checkout opens as a Lemon Squeezy overlay on top of the page
+const buyButton = document.getElementById("buy-chromium");
+if (CHECKOUT.monthly && CHECKOUT.yearly) {
+    delete buyButton.dataset.platform;
+    const lemon = document.createElement("script");
+    lemon.src = "https://app.lemonsqueezy.com/js/lemon.js";
+    lemon.defer = true;
+    lemon.onload = () => window.createLemonSqueezy?.();
+    document.head.append(lemon);
+
+    buyButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        const url = CHECKOUT[billing];
+        if (window.LemonSqueezy)
+            window.LemonSqueezy.Url.Open(url);
+        else
+            location.href = url;
+    });
+}
 
 // Download buttons preselect the browser in the waitlist form
 const form = document.getElementById("notify");
