@@ -4,8 +4,8 @@ const SUPABASE_KEY = "";
 // Lemon Squeezy checkout links for Blok Pro on Chrome / Edge
 // (Products › Blok Pro › each variant › Share). Empty means "not on sale yet".
 const CHECKOUT = {
-    monthly: "",
-    yearly: ""
+    monthly: "https://bundlsubs.lemonsqueezy.com/checkout/buy/d6e27bf3-3f2f-4d62-be2e-c0bc1b1c91d9",
+    yearly: "https://bundlsubs.lemonsqueezy.com/checkout/buy/12434b2b-5175-4948-a46a-3a67ed0a21f1"
 };
 
 const $ = (selector) => document.querySelector(selector);
