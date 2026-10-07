@@ -403,7 +403,7 @@ h1 {
     font-size: 12px;
 }
 
-/* The Blok badge, matching the extension's real label */
+/* The HaltBlock badge, matching the extension's real label */
 
 .blok-badge {
     display: inline-flex;
