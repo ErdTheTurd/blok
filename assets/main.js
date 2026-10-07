@@ -1,8 +1,8 @@
 const SUPABASE_URL = "";
 const SUPABASE_KEY = "";
 
-// Lemon Squeezy checkout links for Blok Pro on Chrome / Edge
-// (Products › Blok Pro › each variant › Share). Empty means "not on sale yet".
+// Lemon Squeezy checkout links for HaltBlock Pro on Chrome / Edge
+// (Products › HaltBlock Pro › each variant › Share). Empty means "not on sale yet".
 const CHECKOUT = {
     monthly: "",
     yearly: ""
@@ -57,14 +57,14 @@ document.querySelectorAll("[data-demo]").forEach((button) => {
             const blurred = demoText.classList.toggle("blurred");
             button.textContent = blurred ? "Show" : "Hide";
             button.classList.toggle("active", blurred);
-            demoHint.textContent = blurred ? "Hidden. Tap Show to reveal it again." : "Try the buttons. Hide blurs it; 👍 / 👎 teach Blok.";
+            demoHint.textContent = blurred ? "Hidden. Tap Show to reveal it again." : "Try the buttons. Hide blurs it; 👍 / 👎 teach HaltBlock.";
             return;
         }
         document.querySelectorAll("[data-demo='up'], [data-demo='down']").forEach((b) => b.classList.remove("active"));
         button.classList.add("active");
         demoHint.textContent = action === "up"
-            ? "Thanks! Your vote helps Blok catch slop like this for everyone."
-            : "Got it. Blok will label less like this for you, and learn from it.";
+            ? "Thanks! Your vote helps HaltBlock catch slop like this for everyone."
+            : "Got it. HaltBlock will label less like this for you, and learn from it.";
     });
 });
 
@@ -130,7 +130,7 @@ form?.addEventListener("submit", async (event) => {
             body: JSON.stringify({ email })
         });
         message.textContent = response.ok || response.status === 409
-            ? "You're on the list. We'll email you the day Blok launches."
+            ? "You're on the list. We'll email you the day HaltBlock launches."
             : "Something went wrong. Please try again.";
         if (response.ok)
             form.reset();
