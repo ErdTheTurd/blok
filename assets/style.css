@@ -114,6 +114,12 @@ img {
     background: #ff9d5c;
 }
 
+.button .edge-logo {
+    width: 18px;
+    height: 18px;
+    flex: none;
+}
+
 .button-small {
     padding: 8px 16px;
     font-size: 14px;
