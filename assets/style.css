@@ -910,6 +910,20 @@ h2 {
     font-size: 18px;
 }
 
+.download-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.notify-label {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
 .notify {
     display: flex;
     gap: 10px;
