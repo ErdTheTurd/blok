@@ -132,6 +132,9 @@ img {
 
 .button-block {
     width: 100%;
+    white-space: normal;
+    line-height: 1.3;
+    text-align: center;
 }
 
 /* Hero */
@@ -142,21 +145,28 @@ img {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1.05fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
     gap: 64px;
     align-items: center;
+}
+
+.hero-copy {
+    min-width: 0;
 }
 
 .eyebrow {
     display: inline-flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
+    max-width: 100%;
     padding: 6px 14px;
     border-radius: 999px;
     background: var(--surface);
     border: 1px solid var(--border);
     color: var(--muted);
     font-size: 13px;
+    line-height: 1.4;
 }
 
 .eyebrow .dot {
@@ -164,6 +174,11 @@ img {
     height: 7px;
     border-radius: 50%;
     background: #4ade80;
+    flex: none;
+}
+
+.eyebrow-text {
+    min-width: 0;
 }
 
 h1 {
@@ -582,7 +597,7 @@ h2 {
 
 .how-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 56px;
     align-items: center;
 }
@@ -599,6 +614,10 @@ h2 {
 .signals li {
     display: flex;
     gap: 18px;
+}
+
+.signals li > div {
+    min-width: 0;
 }
 
 .num {
@@ -626,6 +645,8 @@ h2 {
 }
 
 .label-demo {
+    min-width: 0;
+    max-width: 100%;
     padding: 28px;
     border-radius: 22px;
     background: var(--surface);
@@ -825,6 +846,12 @@ h2 {
     color: var(--amber);
     font-size: 11px;
     font-weight: 800;
+}
+
+.plan-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .plan-note {
@@ -1045,6 +1072,7 @@ h2 {
     grid-template-columns: 1fr 1fr;
     gap: 72px;
     align-items: center;
+    min-width: 0;
 }
 
 .row.flip .row-copy {
@@ -1099,6 +1127,8 @@ h2 {
 }
 
 .panel {
+    min-width: 0;
+    max-width: 100%;
     padding: 22px;
     border-radius: 16px;
     background: #111117;
@@ -1192,7 +1222,7 @@ h2 {
 
 .log li {
     display: grid;
-    grid-template-columns: 52px 1fr auto;
+    grid-template-columns: 52px minmax(0, 1fr) auto;
     gap: 12px;
     padding: 9px 0;
     border-top: 1px solid var(--border);
@@ -1210,12 +1240,14 @@ h2 {
 }
 
 .log code {
+    min-width: 0;
     color: #d6d6de;
     font: 13px ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    overflow-wrap: anywhere;
 }
 
 .log.requests li {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
 }
 
 /* Visual: the nag screen sites never get to show */
@@ -1272,6 +1304,7 @@ h2 {
 
 .code {
     margin: 0;
+    max-width: 100%;
     overflow-x: auto;
     color: #d6d6de;
     font: 13.5px/1.7 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -1461,7 +1494,7 @@ h2 {
 
 @media (max-width: 960px) {
     .hero-grid, .how-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
     .hero {
         padding-top: 48px;
@@ -1481,7 +1514,7 @@ h2 {
         align-items: flex-start;
     }
     .row {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 32px;
     }
     .row.flip .row-copy {
@@ -1531,6 +1564,31 @@ h2 {
     .footer-inner {
         flex-direction: column;
         text-align: center;
+    }
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .cta-card {
+        padding: 48px 20px;
+    }
+    .hero-actions,
+    .download-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .hero-actions .button,
+    .download-actions .button {
+        min-width: 0;
+        max-width: 100%;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.3;
+    }
+    .blok-badge.large {
+        max-width: 100%;
+        white-space: normal;
+        flex-wrap: wrap;
     }
     .notify {
         flex-direction: column;
