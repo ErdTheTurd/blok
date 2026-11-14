@@ -130,7 +130,7 @@ form?.addEventListener("submit", async (event) => {
             body: JSON.stringify({ email })
         });
         message.textContent = response.ok || response.status === 409
-            ? "You're on the list. We'll email you when Safari or Chrome is ready. Edge is already live."
+            ? "You're on the list. We'll email you when iPhone, iPad or Chrome is ready. Safari on Mac and Edge are already live."
             : "Something went wrong. Please try again.";
         if (response.ok)
             form.reset();
