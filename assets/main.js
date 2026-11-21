@@ -1,5 +1,5 @@
-const SUPABASE_URL = "";
-const SUPABASE_KEY = "";
+const SUPABASE_URL = "https://lajxxqvvhaqkdothufyh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_lb2IkB9g1EXy0MkVrttKSg_OKYOODGW";
 
 // Lemon Squeezy checkout links for HaltBlock Pro on Chrome / Edge
 // (Products › HaltBlock Pro › each variant › Share). Empty means "not on sale yet".
@@ -129,11 +129,20 @@ form?.addEventListener("submit", async (event) => {
             },
             body: JSON.stringify({ email })
         });
-        message.textContent = response.ok || response.status === 409
-            ? "You're on the list. We'll email you when iPhone, iPad or Chrome is ready. Safari on Mac and Edge are already live."
-            : "Something went wrong. Please try again.";
-        if (response.ok)
+        if (response.ok || response.status === 409) {
+            message.textContent = "You're on the list. We'll email you when HaltBlock comes to iPhone, iPad and Chrome.";
             form.reset();
+            return;
+        }
+        let errorMessage = "Something went wrong. Please try again.";
+        try {
+            const body = await response.json();
+            if (body?.message)
+                errorMessage = body.message;
+        } catch {
+            // The response had no JSON body to show.
+        }
+        message.textContent = errorMessage;
     } catch {
         message.textContent = "Something went wrong. Please try again.";
     } finally {
