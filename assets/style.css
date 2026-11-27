@@ -1,6 +1,12 @@
 :root {
     --brand: #f04010;
-    --brand-hover: #d9380e;
+    /* Accessible text/fill tokens (4.5:1+); keep --brand for accents only. */
+    --brand-text: #b8330c;
+    --brand-text-hover: #9a2a09;
+    --brand-fill: #c2340a;
+    --brand-fill-hover: #a82e0a;
+    --brand-hover: var(--brand-fill-hover);
+    --input-border: #76746c;
     --paper: #f8f7f5;
     --paper-2: #f0efec;
     --ink: #141414;
@@ -35,7 +41,12 @@
         --ok-bg: #13261a;
         --warn: #e8b84a;
         --warn-bg: #2a220e;
-        --brand-hover: #ff5524;
+        --brand-text: #ff6b3d;
+        --brand-text-hover: #ff8a5c;
+        --brand-fill: #c2340a;
+        --brand-fill-hover: #a82e0a;
+        --brand-hover: var(--brand-fill-hover);
+        --input-border: #8a8880;
     }
 }
 
@@ -65,7 +76,7 @@ a {
 }
 
 a:hover {
-    color: var(--brand);
+    color: var(--brand-text);
 }
 
 img {
@@ -153,7 +164,7 @@ img {
     padding: 12px 18px;
     border: 1px solid transparent;
     border-radius: var(--radius);
-    background: var(--brand);
+    background: var(--brand-fill);
     color: #fff;
     font: 600 15px/1.2 var(--font);
     cursor: pointer;
@@ -161,8 +172,13 @@ img {
 }
 
 .button:hover {
-    background: var(--brand-hover);
+    background: var(--brand-fill-hover);
     color: #fff;
+}
+
+.button[aria-disabled="true"] {
+    opacity: 0.75;
+    cursor: not-allowed;
 }
 
 .button:disabled {
@@ -495,8 +511,8 @@ h2 {
 }
 
 .price-option.primary {
-    background: var(--brand);
-    border-color: var(--brand);
+    background: var(--brand-fill);
+    border-color: var(--brand-fill);
     color: #fff;
 }
 
@@ -659,7 +675,7 @@ h2 {
 }
 
 .compare-table td.yes {
-    color: var(--brand);
+    color: var(--brand-text);
     font-weight: 700;
 }
 
@@ -736,9 +752,13 @@ h2 {
 }
 
 .faq a {
-    color: var(--brand);
+    color: var(--brand-text);
     text-decoration: underline;
     text-underline-offset: 2px;
+}
+
+.faq a:hover {
+    color: var(--brand-text-hover);
 }
 
 .faq-group + .faq-group {
@@ -793,7 +813,7 @@ h2 {
     flex: 1;
     min-width: 0;
     padding: 12px 14px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--input-border);
     border-radius: var(--radius);
     background: var(--paper);
     color: var(--ink);
@@ -868,13 +888,13 @@ h2 {
 }
 
 .legal a {
-    color: var(--brand);
+    color: var(--brand-text);
     text-decoration: underline;
     text-underline-offset: 2px;
 }
 
 .legal a:hover {
-    color: var(--brand-hover);
+    color: var(--brand-text-hover);
 }
 
 .page-head {
@@ -926,7 +946,7 @@ h2 {
 }
 
 .row-copy .more {
-    color: var(--brand);
+    color: var(--brand-text);
     font-size: 15px;
     font-weight: 600;
 }
@@ -1068,7 +1088,7 @@ h2 {
 }
 
 .log em {
-    color: var(--brand);
+    color: var(--brand-text);
     font-style: normal;
     font-size: 13px;
 }
@@ -1223,7 +1243,7 @@ h2 {
 }
 
 .section-foot a {
-    color: var(--brand);
+    color: var(--brand-text);
     font-weight: 600;
 }
 
@@ -1428,7 +1448,7 @@ h2 {
 }
 
 .privacy-callout a {
-    color: var(--brand);
+    color: var(--brand-text);
     font-weight: 600;
 }
 

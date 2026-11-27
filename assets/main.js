@@ -9,6 +9,15 @@ const CHECKOUT = {
     lifetime: ""
 };
 
+const CHECKOUT_HOSTS = [
+    "lemonsqueezy.com",
+    "www.lemonsqueezy.com",
+    "app.lemonsqueezy.com",
+    "haltblock.lemonsqueezy.com"
+];
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const $ = (selector) => document.querySelector(selector);
 
 const year = $("#year");
@@ -30,6 +39,19 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
 
+function isAllowedCheckoutUrl(url) {
+    try {
+        const parsed = new URL(url);
+        if (parsed.protocol !== "https:")
+            return false;
+        return CHECKOUT_HOSTS.some((host) => (
+            parsed.hostname === host || parsed.hostname.endsWith(`.${host}`)
+        ));
+    } catch {
+        return false;
+    }
+}
+
 // Interactive label demo
 const demoText = $("#demo-text");
 const demoHint = $("#demo-hint");
@@ -40,14 +62,16 @@ document.querySelectorAll("[data-demo]").forEach((button) => {
             const blurred = demoText.classList.toggle("blurred");
             button.textContent = blurred ? "Show" : "Hide";
             button.classList.toggle("active", blurred);
-            demoHint.textContent = blurred ? "Hidden. Tap Show to reveal it again." : "Try the buttons. Hide blurs it; thumbs teach HaltBlock.";
+            demoHint.textContent = blurred
+                ? "Hidden. Tap Show to reveal it again. (Demo only — nothing is saved.)"
+                : "Try the buttons. This is only an example; votes here aren't saved.";
             return;
         }
         document.querySelectorAll("[data-demo='up'], [data-demo='down']").forEach((b) => b.classList.remove("active"));
         button.classList.add("active");
         demoHint.textContent = action === "up"
-            ? "Thanks. Your vote helps HaltBlock label content like this."
-            : "Got it. HaltBlock will label less like this for you.";
+            ? "Thanks. In this example, a thumbs-up would reinforce labels like this. (Demo only — nothing is saved.)"
+            : "Got it. In this example, HaltBlock would label less like this. (Demo only — nothing is saved.)";
     });
 });
 
@@ -60,7 +84,11 @@ const PRICES = {
 let billing = "yearly";
 document.querySelectorAll("[data-billing]").forEach((button) => {
     button.addEventListener("click", () => {
-        document.querySelectorAll("[data-billing]").forEach((b) => b.classList.toggle("active", b === button));
+        document.querySelectorAll("[data-billing]").forEach((b) => {
+            const active = b === button;
+            b.classList.toggle("active", active);
+            b.setAttribute("aria-pressed", String(active));
+        });
         billing = button.dataset.billing;
         const plan = PRICES[billing];
         const price = $("#price");
@@ -77,21 +105,52 @@ document.querySelectorAll("[data-billing]").forEach((button) => {
 
 // Lemon Squeezy checkout for Chrome / Edge, opened as an overlay on the page
 const buyButton = $("#buy-chromium");
-if (buyButton && CHECKOUT.monthly && CHECKOUT.yearly) {
-    const lemon = document.createElement("script");
-    lemon.src = "https://app.lemonsqueezy.com/js/lemon.js";
-    lemon.defer = true;
-    lemon.onload = () => window.createLemonSqueezy?.();
-    document.head.append(lemon);
+const checkoutConfigured = Object.values(CHECKOUT).some(Boolean);
+function showCheckoutNotice(text) {
+    let note = $("#checkout-msg");
+    if (!note) {
+        note = document.createElement("p");
+        note.id = "checkout-msg";
+        note.className = "plan-note";
+        note.setAttribute("aria-live", "polite");
+        buyButton.after(note);
+    }
+    note.textContent = text;
+}
 
-    buyButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        const url = CHECKOUT[billing] || CHECKOUT.yearly;
-        if (window.LemonSqueezy)
-            window.LemonSqueezy.Url.Open(url);
-        else
-            location.href = url;
-    });
+if (buyButton) {
+    if (!checkoutConfigured) {
+        buyButton.textContent = "Edge purchases aren't available yet";
+        buyButton.setAttribute("aria-disabled", "true");
+        buyButton.setAttribute("href", "#");
+        buyButton.addEventListener("click", (event) => {
+            event.preventDefault();
+        });
+    } else {
+        const lemon = document.createElement("script");
+        lemon.src = "https://app.lemonsqueezy.com/js/lemon.js";
+        lemon.defer = true;
+        lemon.onload = () => window.createLemonSqueezy?.();
+        document.head.append(lemon);
+
+        buyButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            const url = CHECKOUT[billing];
+            if (!url) {
+                showCheckoutNotice("Checkout isn't available for this plan yet.");
+                return;
+            }
+            if (!isAllowedCheckoutUrl(url)) {
+                showCheckoutNotice("Checkout isn't available for this plan yet.");
+                return;
+            }
+            showCheckoutNotice("");
+            if (window.LemonSqueezy)
+                window.LemonSqueezy.Url.Open(url);
+            else
+                location.href = url;
+        });
+    }
 }
 
 // Waitlist
@@ -99,15 +158,25 @@ const form = $("#notify");
 const message = $("#notify-msg");
 form?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const email = form.querySelector("input").value.trim();
+    const input = form.querySelector("input");
+    const email = (input?.value || "").trim().slice(0, 254);
     const button = form.querySelector("button");
+
+    if (!EMAIL_RE.test(email)) {
+        message.textContent = "Enter a valid email address.";
+        return;
+    }
 
     if (!SUPABASE_URL || !SUPABASE_KEY) {
         message.textContent = "Sign-ups open soon. Check back shortly!";
         return;
     }
 
+    if (button.disabled)
+        return;
+
     button.disabled = true;
+    let keepDisabled = false;
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
             method: "POST",
@@ -122,20 +191,14 @@ form?.addEventListener("submit", async (event) => {
         if (response.ok || response.status === 409) {
             message.textContent = "You're on the list. We'll email you when Chrome is ready.";
             form.reset();
+            keepDisabled = true;
             return;
         }
-        let errorMessage = "Something went wrong. Please try again.";
-        try {
-            const body = await response.json();
-            if (body?.message)
-                errorMessage = body.message;
-        } catch {
-            // The response had no JSON body to show.
-        }
-        message.textContent = errorMessage;
+        message.textContent = "Something went wrong. Please try again.";
     } catch {
         message.textContent = "Something went wrong. Please try again.";
     } finally {
-        button.disabled = false;
+        if (!keepDisabled)
+            button.disabled = false;
     }
 });

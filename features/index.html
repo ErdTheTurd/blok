@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://app.lemonsqueezy.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://lajxxqvvhaqkdothufyh.supabase.co; frame-src https://*.lemonsqueezy.com https://lemonsqueezy.com; base-uri 'self'; form-action 'self'; object-src 'none'">
     <title>Features — HaltBlock</title>
     <meta name="description" content="How HaltBlock blocks ads and trackers in Safari, cleans up YouTube, and labels AI-generated text, images and YouTube videos.">
     <meta property="og:title" content="Features — HaltBlock">
@@ -11,8 +13,8 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8F7F5">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0E0E0E">
     <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../assets/style.css?v=9">
-    <script src="../assets/main.js?v=9" defer></script>
+    <link rel="stylesheet" href="../assets/style.css?v=10">
+    <script src="../assets/main.js?v=10" defer></script>
 </head>
 <body>
     <nav class="nav">
@@ -133,7 +135,7 @@
                     </li>
                     <li>
                         <span class="num">3</span>
-                        <div><h4>Votes from other people</h4><p>Every 👍 and 👎 is sent as an anonymous fingerprint of the content. When enough people agree about the same post, image or video, everyone's label for it gets more accurate.</p></div>
+                        <div><h4>Votes from other people</h4><p>Every 👍 and 👎 sends a content fingerprint, the site domain, the vote, a random install ID, the content type, score, and platform. The content itself is only sent if sample sharing is on. When enough people agree, everyone's label gets more accurate.</p></div>
                     </li>
                 </ol>
 
@@ -142,7 +144,7 @@
                     <div class="demo-card">
                         <div class="blok-badge large"><span class="pip"></span>AI text · 80% likely<button data-demo="up">👍</button><button data-demo="down">👎</button><button data-demo="hide">Hide</button></div>
                         <p class="demo-text" id="demo-text">Unlock the secrets of productivity with these game-changing strategies that will revolutionize the way you work, foster creativity, and elevate your daily routine.</p>
-                        <p class="demo-hint" id="demo-hint">Try the buttons. Hide blurs it; 👍 / 👎 teach HaltBlock.</p>
+                        <p class="demo-hint" id="demo-hint">Try the buttons. This is only an example; votes here aren't saved.</p>
                     </div>
                     <div class="meter visible">
                         <div class="meter-row"><span>Metadata</span><div class="bar"><i style="--w:20%"></i></div></div>
@@ -246,14 +248,14 @@
         <div class="container">
             <div class="cta-block">
                 <h2>Get HaltBlock</h2>
-                <p>Blocks ads and trackers in Safari on iPhone, iPad and Mac. Also available for Microsoft Edge. Chrome is coming soon.</p>
+                <p>Available for Safari on Mac and for Microsoft Edge. Safari on iPhone and iPad is coming soon. Chrome is on the waitlist below.</p>
                 <div class="download-actions">
-                    <a class="button" href="https://apps.apple.com/us/app/haltblock-ai-ad-blocker/id6819837838?mt=12" rel="noopener">Download on the Mac App Store</a>
-                    <a class="button button-ghost" href="https://microsoftedge.microsoft.com/addons/detail/nmaakingkhcmhkjenjofkkhcdcbfdnhn" rel="noopener">Get for Edge</a>
+                    <a class="button" href="https://apps.apple.com/us/app/haltblock-ai-ad-blocker/id6819837838?mt=12" rel="noopener noreferrer">Download on the Mac App Store</a>
+                    <a class="button button-ghost" href="https://microsoftedge.microsoft.com/addons/detail/nmaakingkhcmhkjenjofkkhcdcbfdnhn" rel="noopener noreferrer">Get for Edge</a>
                 </div>
                 <p class="notify-label">Want Chrome? Leave your email.</p>
                 <form class="notify" id="notify">
-                    <input type="email" placeholder="you@email.com" required aria-label="Email address">
+                    <input type="email" placeholder="you@email.com" required maxlength="254" autocomplete="email" aria-label="Email address">
                     <button class="button" type="submit">Notify me</button>
                 </form>
                 <p class="notify-msg" id="notify-msg" aria-live="polite"></p>
