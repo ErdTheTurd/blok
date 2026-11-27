@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://app.lemonsqueezy.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://lajxxqvvhaqkdothufyh.supabase.co; frame-src https://*.lemonsqueezy.com https://lemonsqueezy.com; base-uri 'self'; form-action 'self'; object-src 'none'">
     <title>Privacy Policy — HaltBlock</title>
     <meta name="description" content="What the HaltBlock extension does with data: what stays on your device, what is sent, to whom, and how to delete it.">
     <meta property="og:title" content="Privacy Policy — HaltBlock">
@@ -11,8 +13,8 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8F7F5">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0E0E0E">
     <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../assets/style.css?v=9">
-    <script src="../assets/main.js?v=9" defer></script>
+    <link rel="stylesheet" href="../assets/style.css?v=10">
+    <script src="../assets/main.js?v=10" defer></script>
 </head>
 <body>
     <nav class="nav">
@@ -76,7 +78,7 @@
 
             <h2>SponsorBlock</h2>
             <p>If you have HaltBlock Pro and “Skip sponsored segments” is on (it's on by default for Pro), HaltBlock sends the ID of the YouTube video you're watching to <a href="https://sponsor.ajay.app">SponsorBlock</a> (sponsor.ajay.app) to find sponsor reads, self-promo and subscribe reminders to skip. SponsorBlock is a third-party service with its own <a href="https://gist.github.com/ajayyy/aa9f8ded2b573d4f73a3ffa0ef74f796">privacy policy</a>. HaltBlock doesn't send it anything else.</p>
-            <p>To stop this, turn off “Skip sponsored segments” in HaltBlock's settings: the settings page in Edge, or the HaltBlock app on iPhone, iPad or Mac.</p>
+            <p>To stop this, turn off “Skip sponsored segments” in HaltBlock's settings: the settings page in Edge, or the HaltBlock app on Mac.</p>
 
             <h2>Payments and license keys</h2>
             <ul>
@@ -124,14 +126,14 @@
         <div class="container">
             <div class="cta-block">
                 <h2>Get HaltBlock</h2>
-                <p>Blocks ads and trackers in Safari on iPhone, iPad and Mac. Also available for Microsoft Edge. Chrome is coming soon.</p>
+                <p>Available for Safari on Mac and for Microsoft Edge. Safari on iPhone and iPad is coming soon. Chrome is on the waitlist below.</p>
                 <div class="download-actions">
-                    <a class="button" href="https://apps.apple.com/us/app/haltblock-ai-ad-blocker/id6819837838?mt=12" rel="noopener">Download on the Mac App Store</a>
-                    <a class="button button-ghost" href="https://microsoftedge.microsoft.com/addons/detail/nmaakingkhcmhkjenjofkkhcdcbfdnhn" rel="noopener">Get for Edge</a>
+                    <a class="button" href="https://apps.apple.com/us/app/haltblock-ai-ad-blocker/id6819837838?mt=12" rel="noopener noreferrer">Download on the Mac App Store</a>
+                    <a class="button button-ghost" href="https://microsoftedge.microsoft.com/addons/detail/nmaakingkhcmhkjenjofkkhcdcbfdnhn" rel="noopener noreferrer">Get for Edge</a>
                 </div>
                 <p class="notify-label">Want Chrome? Leave your email.</p>
                 <form class="notify" id="notify">
-                    <input type="email" placeholder="you@email.com" required aria-label="Email address">
+                    <input type="email" placeholder="you@email.com" required maxlength="254" autocomplete="email" aria-label="Email address">
                     <button class="button" type="submit">Notify me</button>
                 </form>
                 <p class="notify-msg" id="notify-msg" aria-live="polite"></p>

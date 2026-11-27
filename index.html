@@ -3,16 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://app.lemonsqueezy.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://lajxxqvvhaqkdothufyh.supabase.co; frame-src https://*.lemonsqueezy.com https://lemonsqueezy.com; base-uri 'self'; form-action 'self'; object-src 'none'">
     <title>HaltBlock — Block ads. Spot AI content.</title>
-    <meta name="description" content="HaltBlock blocks ads and trackers in Safari on iPhone, iPad and Mac, cleans up YouTube, and labels AI-generated text, images and YouTube videos. Ads are blocked on device; AI checks run on device.">
+    <meta name="description" content="HaltBlock blocks ads and trackers in Safari on Mac and on Microsoft Edge, cleans up YouTube, and labels AI-generated text, images and YouTube videos. Ads are blocked on device; AI checks run on device. iPhone and iPad coming soon.">
     <meta property="og:title" content="HaltBlock — Block ads. Spot AI content.">
-    <meta property="og:description" content="HaltBlock blocks ads and trackers in Safari on iPhone, iPad and Mac, cleans up YouTube, and labels AI-generated text, images and YouTube videos.">
+    <meta property="og:description" content="HaltBlock blocks ads and trackers in Safari on Mac and on Microsoft Edge, cleans up YouTube, and labels AI-generated text, images and YouTube videos. iPhone and iPad coming soon.">
     <meta property="og:type" content="website">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8F7F5">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0E0E0E">
     <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="assets/style.css?v=9">
-    <script src="assets/main.js?v=9" defer></script>
+    <link rel="stylesheet" href="assets/style.css?v=10">
+    <script src="assets/main.js?v=10" defer></script>
 </head>
 <body>
     <nav class="nav">
@@ -36,12 +38,12 @@
                     <span>HaltBlock</span>
                 </div>
                 <h1>Block ads. Spot AI content.</h1>
-                <p class="lead">Blocks ads and trackers in Safari on iPhone, iPad and Mac. Cleans up YouTube. Labels AI-generated text, images and YouTube videos.</p>
+                <p class="lead">Blocks ads and trackers in Safari on Mac and on Microsoft Edge. Cleans up YouTube. Labels AI-generated text, images and YouTube videos.</p>
                 <div class="hero-actions">
-                    <a href="https://apps.apple.com/us/app/haltblock-ai-ad-blocker/id6819837838?mt=12" class="button" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Download on the Mac App Store</a>
-                    <a href="https://microsoftedge.microsoft.com/addons/detail/nmaakingkhcmhkjenjofkkhcdcbfdnhn" class="button button-ghost" rel="noopener">Get for Edge</a>
+                    <a href="https://apps.apple.com/us/app/haltblock-ai-ad-blocker/id6819837838?mt=12" class="button" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Download on the Mac App Store</a>
+                    <a href="https://microsoftedge.microsoft.com/addons/detail/nmaakingkhcmhkjenjofkkhcdcbfdnhn" class="button button-ghost" rel="noopener noreferrer">Get for Edge</a>
                 </div>
-                <p class="hero-note">Safari on iPhone and iPad installs from the App Store too.</p>
+                <p class="hero-note">Safari on iPhone and iPad is coming soon.</p>
             </div>
 
             <div class="hero-visual reveal">
@@ -68,7 +70,7 @@
                     <span class="mark" aria-hidden="true">1</span>
                     <div>
                         <h3>Blocks ads and trackers in Safari</h3>
-                        <p>Banner ads, pop-ups, trackers and YouTube ads are removed before they load — on iPhone, iPad and Mac.</p>
+                        <p>Banner ads, pop-ups, trackers and YouTube ads are removed before they load — on Mac (Safari) and Edge.</p>
                     </div>
                 </li>
                 <li>
@@ -82,7 +84,7 @@
                     <span class="mark" aria-hidden="true">3</span>
                     <div>
                         <h3>Labels AI-generated content</h3>
-                        <p>Text, images and YouTube videos get a small on-page label when they look machine-made. Nothing is deleted unless you hide it.</p>
+                        <p>Text, images and YouTube videos get a small on-page label when they look machine-made. Hide blurs the content without deleting it.</p>
                     </div>
                 </li>
             </ul>
@@ -102,7 +104,7 @@
                     <div class="price-option primary">$11.99 / year<span>14-day free trial</span></div>
                     <div class="price-option ink">$35.99 · lifetime<span>One-time purchase</span></div>
                 </div>
-                <p class="hero-note"><a href="pricing/" style="color: var(--brand); font-weight: 600">See full pricing →</a></p>
+                <p class="hero-note"><a href="pricing/" style="color: var(--brand-text); font-weight: 600">See full pricing →</a></p>
             </div>
             <figure class="shot shot-wide">
                 <img src="assets/shots/paywall-light.jpg" width="662" height="1440" alt="HaltBlock Pro paywall showing monthly, yearly and lifetime prices">
@@ -115,7 +117,7 @@
             <div class="privacy-callout">
                 <span class="kicker">Privacy</span>
                 <h2>On your device.</h2>
-                <p>Ads are blocked on device. AI checks run on device. Only anonymous content fingerprints are sent when you vote, unless you turn on sample sharing. <a href="privacy/">Read the privacy policy →</a></p>
+                <p>Ads are blocked on device. AI checks run on device. When you vote, HaltBlock sends a content fingerprint, the site domain, your vote, a random install ID, the content type, score, and platform. The content itself is only sent if you turn on sample sharing. <a href="privacy/">Read the privacy policy →</a></p>
             </div>
         </div>
     </section>
@@ -124,14 +126,14 @@
         <div class="container">
             <div class="cta-block">
                 <h2>Get HaltBlock</h2>
-                <p>Available for Safari on Mac now. Also on Microsoft Edge. Safari on iPhone and iPad walks you through enabling the extension after install.</p>
+                <p>Available for Safari on Mac and for Microsoft Edge. Safari on iPhone and iPad is coming soon. Chrome is on the waitlist below.</p>
                 <div class="download-actions">
-                    <a class="button" href="https://apps.apple.com/us/app/haltblock-ai-ad-blocker/id6819837838?mt=12" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Download on the Mac App Store</a>
-                    <a class="button button-ghost" href="https://microsoftedge.microsoft.com/addons/detail/nmaakingkhcmhkjenjofkkhcdcbfdnhn" rel="noopener">Get for Edge</a>
+                    <a class="button" href="https://apps.apple.com/us/app/haltblock-ai-ad-blocker/id6819837838?mt=12" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Download on the Mac App Store</a>
+                    <a class="button button-ghost" href="https://microsoftedge.microsoft.com/addons/detail/nmaakingkhcmhkjenjofkkhcdcbfdnhn" rel="noopener noreferrer">Get for Edge</a>
                 </div>
                 <p class="notify-label">Want Chrome? Leave your email.</p>
                 <form class="notify" id="notify">
-                    <input type="email" placeholder="you@email.com" required aria-label="Email address">
+                    <input type="email" placeholder="you@email.com" required maxlength="254" autocomplete="email" aria-label="Email address">
                     <button class="button" type="submit">Notify me</button>
                 </form>
                 <p class="notify-msg" id="notify-msg" aria-live="polite"></p>
