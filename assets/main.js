@@ -5,26 +5,19 @@ const SUPABASE_KEY = "sb_publishable_lb2IkB9g1EXy0MkVrttKSg_OKYOODGW";
 // (Products › HaltBlock Pro › each variant › Share). Empty means "not on sale yet".
 const CHECKOUT = {
     monthly: "",
-    yearly: ""
+    yearly: "",
+    lifetime: ""
 };
 
 const $ = (selector) => document.querySelector(selector);
 
-$("#year").textContent = new Date().getFullYear();
+const year = $("#year");
+if (year)
+    year.textContent = new Date().getFullYear();
 
 const nav = $(".nav");
-addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
-
-function countUp(element, target, duration = 1400) {
-    const start = performance.now();
-    const step = (now) => {
-        const progress = Math.min(1, (now - start) / duration);
-        element.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3)));
-        if (progress < 1)
-            requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-}
+if (nav)
+    addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
 
 const revealObserver = new IntersectionObserver((entries) => {
     for (const entry of entries) {
@@ -37,16 +30,6 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
 
-// Hero counters (home page)
-const statNum = $(".stat-num");
-const badgeCount = $("#badge-count");
-if (statNum && badgeCount) {
-    setTimeout(() => {
-        countUp(statNum, Number(statNum.dataset.count));
-        countUp(badgeCount, 41);
-    }, 400);
-}
-
 // Interactive label demo
 const demoText = $("#demo-text");
 const demoHint = $("#demo-hint");
@@ -57,21 +40,22 @@ document.querySelectorAll("[data-demo]").forEach((button) => {
             const blurred = demoText.classList.toggle("blurred");
             button.textContent = blurred ? "Show" : "Hide";
             button.classList.toggle("active", blurred);
-            demoHint.textContent = blurred ? "Hidden. Tap Show to reveal it again." : "Try the buttons. Hide blurs it; 👍 / 👎 teach HaltBlock.";
+            demoHint.textContent = blurred ? "Hidden. Tap Show to reveal it again." : "Try the buttons. Hide blurs it; thumbs teach HaltBlock.";
             return;
         }
         document.querySelectorAll("[data-demo='up'], [data-demo='down']").forEach((b) => b.classList.remove("active"));
         button.classList.add("active");
         demoHint.textContent = action === "up"
-            ? "Thanks! Your vote helps HaltBlock catch slop like this for everyone."
-            : "Got it. HaltBlock will label less like this for you, and learn from it.";
+            ? "Thanks. Your vote helps HaltBlock label content like this."
+            : "Got it. HaltBlock will label less like this for you.";
     });
 });
 
 // Pricing toggle
 const PRICES = {
-    yearly: { price: "$11.99", period: "/ year", sub: "Just $1 a month. 14-day free trial." },
-    monthly: { price: "$1.99", period: "/ month", sub: "Cancel anytime. 7-day free trial." }
+    yearly: { price: "$11.99", period: "/ year", sub: "14-day free trial." },
+    monthly: { price: "$1.99", period: "/ month", sub: "7-day free trial." },
+    lifetime: { price: "$35.99", period: " lifetime", sub: "One-time purchase." }
 };
 let billing = "yearly";
 document.querySelectorAll("[data-billing]").forEach((button) => {
@@ -79,9 +63,15 @@ document.querySelectorAll("[data-billing]").forEach((button) => {
         document.querySelectorAll("[data-billing]").forEach((b) => b.classList.toggle("active", b === button));
         billing = button.dataset.billing;
         const plan = PRICES[billing];
-        $("#price").textContent = plan.price;
-        $("#price-period").textContent = plan.period;
-        $("#price-sub").textContent = plan.sub;
+        const price = $("#price");
+        const period = $("#price-period");
+        const sub = $("#price-sub");
+        if (price)
+            price.textContent = plan.price;
+        if (period)
+            period.textContent = plan.period;
+        if (sub)
+            sub.textContent = plan.sub;
     });
 });
 
@@ -96,7 +86,7 @@ if (buyButton && CHECKOUT.monthly && CHECKOUT.yearly) {
 
     buyButton.addEventListener("click", (event) => {
         event.preventDefault();
-        const url = CHECKOUT[billing];
+        const url = CHECKOUT[billing] || CHECKOUT.yearly;
         if (window.LemonSqueezy)
             window.LemonSqueezy.Url.Open(url);
         else
@@ -130,7 +120,7 @@ form?.addEventListener("submit", async (event) => {
             body: JSON.stringify({ email })
         });
         if (response.ok || response.status === 409) {
-            message.textContent = "You're on the list. We'll email you when HaltBlock comes to iPhone, iPad and Chrome.";
+            message.textContent = "You're on the list. We'll email you when Chrome is ready.";
             form.reset();
             return;
         }
